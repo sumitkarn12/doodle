@@ -1,0 +1,10 @@
+#placeholder-text {
+  height: 100vh;
+  user-select: none;
+}
+
+.separator {
+  border: 1px solid gray;
+}
+
+#annotation-canvas { overflow: hidden; }

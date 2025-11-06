@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Client-Side Image Annotation Tool</title>
+	<!-- Bulma CSS for modern styling -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+	<!-- Font Awesome 4.7.0 Icons -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <script src="https://unpkg.com/konva@10/konva.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
+  <link rel="stylesheet" type="text/css" href="/styles.css" />
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+</head>
+
+<body>
+
+	<div id="controls" class="is-flex p-2 is-sticky-top is-hidden" style="gap: 8px;">
+		<button id="mode-rect" class="tool-button button is-info" data-mode="rect"><i class="fa fa-square-o"></i></button>
+		<button id="mode-circle" class="tool-button button" data-mode="circle"><i class="fa fa-circle-o"></i></button>
+		<button id="mode-arrow" class="tool-button button" data-mode="arrow"><i class="fa fa-arrow-right"></i></button>
+		<button id="mode-counter" class="tool-button button" data-mode="counter"><i class="fa fa-hashtag"></i></button>
+		<div class="separator"></div>
+		<button id="mode-remove" class="button"><i class="fa fa-trash"></i></button>
+		<div class="separator"></div>
+		<input type="color" id="fill-color" value="#FFFFFF" class="input p-0" />
+		<button id="no-fill" class="button">No Fill</button>
+		<div class="separator"></div>
+		<input type="color" id="stroke-color" value="#FF0000" class="input p-0" />
+		<button id="no-stroke" class="button">No Stroke</button>
+		<div class="separator"></div>
+		<button id="download-btn" class="button is-success" title="Download PNG"><i class="fa fa-download"></i></button>
+		<button id="copy-btn" class="button is-primary" title="Copy to Clipboard"><i class="fa fa-clipboard"></i></button>
+	</div>
+
+
+  <div id="placeholder-text" class="is-flex is-justify-content-center is-align-items-center">
+    <p class="subtitle is-5 has-text-grey p-5">
+      Press <code>Ctrl+V</code> (or <code>Cmd+V</code>) to paste from your clipboard & start doodling on the image.
+    </p>
+  </div>
+
+  <div id="annotation-canvas" class="is-hidden"></div>
+
+  <script src="/script.js"></script>
+
+</body>
+
+</html>
