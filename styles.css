@@ -1,6 +1,7 @@
 #placeholder-text {
   height: 100vh;
   user-select: none;
+  transition: all 0.5s ease;
 }
 
 .separator {
