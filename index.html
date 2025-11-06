@@ -5,9 +5,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>Free Online Image Annotator & Screenshot Markup Tool</title>
-	<meta name="description"
-		content="Easily add arrows, rectangles, circles, and numbered steps. Fast, no upload required: just paste, edit, and download or copy your annotated PNG." />
+<title>Free Online Image Annotator & Screenshot Markup Tool</title>
+<meta name="description" content="Easily add arrows, rectangles, circles, and numbered steps. Fast, no upload required: just paste, edit, and download or copy your annotated PNG." />
 
 	<!-- Bulma CSS for modern styling -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
@@ -16,6 +15,8 @@
 	<script src="https://unpkg.com/konva@10/konva.min.js"></script>
 	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css" />
 	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+	<link rel="stylesheet" href="/styles.css" />
 
 	<link rel="apple-touch-icon" sizes="57x57" href="/apple-icon-57x57.png" />
 	<link rel="apple-touch-icon" sizes="60x60" href="/apple-icon-60x60.png" />
@@ -38,19 +39,17 @@
 	<!-- SOCIAL MEDIA TAGS START (Open Graph & Twitter Cards) -->
 	<!-- Open Graph Tags (for Facebook, LinkedIn, etc.) -->
 	<meta property="og:title" content="Free Online Image Annotator & Screenshot Markup Tool">
-	<meta property="og:description"
-		content="Fast, client-side annotation tool. Easily add arrows, circles, and numbered steps to any image—no upload, just paste and edit!" />
+	<meta property="og:description" content="Fast, client-side annotation tool. Easily add arrows, circles, and numbered steps to any image—no upload, just paste and edit!" />
 	<meta property="og:type" content="website" />
 	<meta property="og:url" content="https://doodle.idkey.in" />
 	<!-- Using a 1200x630 image size for optimal display on social platforms -->
 	<meta property="og:image" content="https://placehold.co/1200x630/4A90E2/ffffff?text=Image+Annotator+Tool" />
-
+	
 	<!-- Twitter Card Tags -->
 	<!-- Use 'summary_large_image' for maximum visibility -->
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="The Best Free, Client-Side Image Annotation Tool">
-	<meta name="twitter:description"
-		content="Stop waiting for uploads! Paste, mark up with arrows, and steps, and download your annotated PNG instantly. Perfect for bug reports and tutorials." />
+	<meta name="twitter:description" content="Stop waiting for uploads! Paste, mark up with arrows, and steps, and download your annotated PNG instantly. Perfect for bug reports and tutorials." />
 	<meta name="twitter:image" content="https://placehold.co/1200x630/4A90E2/ffffff?text=Image+Annotator+Tool">
 	<!-- SOCIAL MEDIA TAGS END -->
 
@@ -59,8 +58,7 @@
 <body>
 
 	<div id="controls" class="is-flex p-2 is-sticky-top is-hidden" style="gap: 8px;">
-		<button id="mode-rect" class="tool-button button is-info" data-mode="rect"><i
-				class="fa fa-square-o"></i></button>
+		<button id="mode-rect" class="tool-button button is-info" data-mode="rect"><i class="fa fa-square-o"></i></button>
 		<button id="mode-circle" class="tool-button button" data-mode="circle"><i class="fa fa-circle-o"></i></button>
 		<button id="mode-arrow" class="tool-button button" data-mode="arrow"><i class="fa fa-arrow-right"></i></button>
 		<button id="mode-counter" class="tool-button button" data-mode="counter"><i class="fa fa-hashtag"></i></button>
@@ -74,8 +72,7 @@
 		<button id="no-stroke" class="button">No Stroke</button>
 		<div class="separator"></div>
 		<button id="download-btn" class="button is-success" title="Download PNG"><i class="fa fa-download"></i></button>
-		<button id="copy-btn" class="button is-primary" title="Copy to Clipboard"><i
-				class="fa fa-clipboard"></i></button>
+		<button id="copy-btn" class="button is-primary" title="Copy to Clipboard"><i class="fa fa-clipboard"></i></button>
 	</div>
 
 
@@ -87,6 +84,8 @@
 	</div>
 
 	<div id="annotation-canvas" class="is-hidden"></div>
+
+	<script type="text/javascript" src="/script.js"></script>
 
 </body>
 
