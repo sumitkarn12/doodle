@@ -9,6 +9,7 @@ const nostrokeEl = document.querySelector("#no-stroke");
 const toolBtns = document.querySelectorAll(".tool-button");
 const removeBtn = document.querySelector("#mode-remove");
 const canvasWrapper = document.querySelector("#placeholder-text");
+const strokeInput = document.querySelector("#stroke-size");
 
 const stage = new Konva.Stage({
   container: 'annotation-canvas',
@@ -19,13 +20,23 @@ const layer = new Konva.Layer();
 stage.add(layer);
 const strokes = new Map(JSON.parse(localStorage.getItem(KONVA_STROKES)));
 
-let fillColor = `#ffffff00`;
+let selectInfoShowCount = 0;
+let fillColor = `transparent`;
 let strokeColor = '#ff0000';
 let isDrawing = false;
 let currentMode = 'rect';
 let currentShape = null;
 let counter = 0;
 let tr = new Konva.Transformer();
+
+function shapeSelected(s) {
+  currentShape = s;
+  if (s && currentShape.strokeWidth) {
+    strokeInput.value = currentShape.strokeWidth();
+  } else {
+    strokeInput.value = "";
+  }
+}
 
 function getContrastingTextColor(hexColor) {
   // Convert hex to RGB
@@ -50,24 +61,29 @@ toolBtns.forEach(el => {
   });
 });
 
-fillEl.addEventListener("change", el => {
+fillEl.addEventListener("input", el => {
+  nofillEl.classList.remove("is-info");
   fillColor = el.target.value;
-  if (currentShape)
+  if (currentShape) {
     currentShape.fill(fillColor);
+  }
 });
-strokeEl.addEventListener("change", el => {
+strokeEl.addEventListener("input", el => {
+  nostrokeEl.classList.remove("is-info");
   strokeColor = el.target.value;
   if (currentShape)
     currentShape.stroke(strokeColor);
 });
 nofillEl.addEventListener("click", el => {
-  fillColor = `rgba(0,0,0,0)`;
+  el.target.classList.add("is-info");
+  fillColor = `transparent`;
   fillEl.value = "#ffffff"
   if (currentShape)
     currentShape.fill(fillColor);
 });
 nostrokeEl.addEventListener("click", el => {
-  strokeColor = `rgba(0,0,0,0)`;
+  el.target.classList.add("is-info");
+  strokeColor = `transparent`;
   strokeEl.value = "#ffffff"
   if (currentShape)
     currentShape.stroke(strokeColor);
@@ -80,6 +96,7 @@ removeBtn.addEventListener("click", ev => {
   });
   stage.container().style.cursor = "default";
   tr.nodes([]);
+  shapeSelected(null);
 });
 
 function drawRect(x, y) {
@@ -132,10 +149,10 @@ function drawCounter(x, y) {
     x: 0,
     y: 0,
     radius: 40,
-    fill: strokeColor,
-    stroke: fillColor,
+    fill: (fillColor == "transparent") ? "#fff" : fillColor,
+    stroke: strokeColor,
     name: "counter",
-    strokeWidth: strokes.get("counter") || 10,
+    strokeWidth: strokes.get("step-counter") || 10,
   });
   const t = new Konva.Text({
     x: -40,
@@ -145,7 +162,8 @@ function drawCounter(x, y) {
     align: 'center',
     verticalAlign: 'middle',
     text: (++counter),
-    fill: getContrastingTextColor(strokeColor),
+    // fill: getContrastingTextColor(c.stroke()),
+    fill: c.stroke(),
     fontSize: 50,
     name: 'counter'
   });
@@ -155,6 +173,14 @@ function drawCounter(x, y) {
     name: "step-counter",
     draggable: true
   });
+  g.fill = (color) => { c.fill(color); t.fill(c.stroke()); }
+  g.stroke = (color) => { c.stroke(color); t.fill(c.stroke()); }
+  g.strokeWidth = (w) => {
+    if (w) {
+      c.strokeWidth(w);
+    }
+    return c.strokeWidth();
+  }
   g.add(c);
   g.add(t);
   return g;
@@ -198,7 +224,7 @@ stage.on("mousemove", (e) => {
 
 stage.on("mouseup", ev => {
   isDrawing = false;
-  currentShape = null;
+  shapeSelected(null);
 });
 
 stage.on("mouseover", ev => {
@@ -218,33 +244,50 @@ stage.on("mouseout", ev => {
 stage.on("click", ev => {
   if (ev.target == stage || ev.target.id() === "bgimage") {
     tr.nodes([]);
+    strokeInput.value = "";
     return;
   }
-  currentShape = ev.target;
+  shapeSelected(ev.target);
   if (currentShape.getClassName() == "Text" || currentShape.getClassName() == "Circle") {
-    currentShape = ev.target.getParent();
+    shapeSelected(ev.target.getParent());
   }
+  tr.nodes([currentShape]);
+  layer.add(tr);
+  if (selectInfoShowCount >= 5) return;
   Toastify({
     text: "Click 'Delete' or 'Backspace' button to remove. 'Esc' to deselect.",
     close: true,
+    gravity: "bottom",
+    position: "left",
     duration: 2000
   }).showToast();
-  tr.nodes([currentShape]);
-  layer.add(tr);
+  ++selectInfoShowCount;
 });
 
 stage.on("wheel", ev => {
   if (ev.target == stage || ev.target.id() === "bgimage") return;
   ev.evt.preventDefault();
 
-  let increaseBy = 3;
+  if (strokeColor == "transparent") return;
 
-  let oldStrokeWidth = ev.target.strokeWidth();
+  let increaseBy = 3;
+  let timeout = null;
+  clearTimeout(timeout);
+
+
+  let node = (ev.target.name() == "counter") ? ev.target.getParent() : ev.target;
+  let oldStrokeWidth = node.strokeWidth();
+
   let s = oldStrokeWidth + Math.sign(ev.evt.wheelDeltaY) * increaseBy;
   if (s > 3) {
-    ev.target.strokeWidth(s);
-    strokes.set(ev.target.name(), s);
+    node.strokeWidth(s);
+    strokes.set(node.name(), s);
     localStorage.setItem(KONVA_STROKES, JSON.stringify(Array.from(strokes)));
+    strokeInput.value = s;
+    setTimeout(() => {
+      if (!tr.nodes().length)
+        strokeInput.value = "";
+    }, 3000);
   }
 });
 
@@ -266,7 +309,6 @@ function loadImage(imgElement) {
 
   const bgImage = new Konva.Image({ image: imgElement, id: 'bgimage' });
   layer.add(bgImage);
-  Toastify({ text: "Image loaded from clipboard." }).showToast()
 }
 
 document.addEventListener('paste', (e) => {
@@ -292,6 +334,8 @@ document.addEventListener('paste', (e) => {
     Toastify({
       text: "No image found in your clipboard. Copy an image first.",
       duration: 5000,
+      gravity: "bottom",
+      position: "left",
       close: true
     }).showToast();
   }
@@ -321,7 +365,7 @@ canvasWrapper.addEventListener('drop', (e) => {
     };
     reader.readAsDataURL(files[0]);
   } else {
-    Toastify({ text: 'Only image files are supported.', close: true, duration: 3000}).showToast();
+    Toastify({ text: 'Only imaged are supported.', close: true, duration: 3000, position: 'left', gravity: "bottom" }).showToast();
   }
 });
 
@@ -350,15 +394,16 @@ document.querySelector("#copy-btn").addEventListener("click", async ev => {
   const blob = await stage.toBlob();
 
   try {
-
     // Use the ClipboardItem interface to write the image blob
     const item = new ClipboardItem({ [blob.type]: blob });
     await navigator.clipboard.write([item]);
 
     Toastify({
-      text: 'Image copied to clipboard successfully!',
+      text: 'Copied!',
       duration: 3000,
       close: true,
+      position: "left",
+      gravity: "bottom"
     }).showToast();
 
     setTimeout(() => {
@@ -370,6 +415,8 @@ document.querySelector("#copy-btn").addEventListener("click", async ev => {
       text: 'Copy to clipboard failed: The browser blocked this action due to security restrictions. Please use the "Download PNG" button instead.',
       duration: 3000,
       close: true,
+      position: "left",
+      gravity: "bottom"
     }).showToast();
     console.error('Copy to clipboard failed:', err);
   }
@@ -380,11 +427,16 @@ document.addEventListener("keyup", ev => {
   if (ev.code == "Backspace" || ev.code == "Delete") {
     removeBtn.click();
   } else if (ev.code == "Escape") {
-    currentShape = null;
+    shapeSelected(null);
     tr.nodes([]);
+    strokeInput.value = "";
   } else if (ev.code == "KeyR") {
     document.querySelector("#mode-rect").click();
   } else if (ev.code == "KeyC") {
+    if ( ev.ctrlKey ) {
+      document.querySelector("#copy-btn").click();
+      return;
+    }
     document.querySelector("#mode-circle").click();
   } else if (ev.code == "KeyA") {
     document.querySelector("#mode-arrow").click();
@@ -393,7 +445,7 @@ document.addEventListener("keyup", ev => {
   } else if (ev.code == "KeyZ" && ev.ctrlKey) {
     let lastElm = layer.getChildren().pop();
     if (lastElm.id() !== "bgimage") {
-      currentShape = lastElm;
+      shapeSelected(lastElm);
       removeBtn.click();
     }
   }

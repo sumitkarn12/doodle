@@ -5,7 +5,10 @@
 }
 
 .separator {
-  border: 1px solid gray;
+  border-left: 1px solid gray;
 }
 
-#annotation-canvas { overflow: hidden; }
+#annotation-canvas {
+  overflow: hidden;
+  border-bottom:1px solid gray;
+}
