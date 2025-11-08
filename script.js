@@ -78,8 +78,9 @@ nofillEl.addEventListener("click", el => {
   el.target.classList.add("is-info");
   fillColor = `transparent`;
   fillEl.value = "#ffffff"
-  if (currentShape)
-    currentShape.fill(fillColor);
+  if (currentShape) {
+    currentShape.fill( ( currentShape.name() == "step-counter" )?"#fff":fillColor );
+  }
 });
 nostrokeEl.addEventListener("click", el => {
   el.target.classList.add("is-info");
