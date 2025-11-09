@@ -12,3 +12,15 @@
   overflow: hidden;
   border-bottom:1px solid gray;
 }
+
+
+.docs {
+  max-width: 740px;
+  padding: 16px;
+  margin: auto;
+}
+kbd {
+  background-color: #dddddd;
+  padding: 2px 4px;
+  border-radius: 4px;
+}

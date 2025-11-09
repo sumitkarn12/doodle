@@ -90,6 +90,165 @@
 
 	<div id="annotation-canvas" class="is-hidden"></div>
 
+
+		<div class="docs content">
+
+		<h1 id="-image-annotation-tool-user-guide">🎨 Image Annotation Tool User Guide</h1>
+		<p>Welcome to the Annotation Tool! This simple and powerful application lets you mark up images with different
+			shapes,
+			arrows, and step-by-step counters.</p>
+		<hr>
+		<h2 id="-getting-started-importing-your-image">🖼️ Getting Started: Importing Your Image</h2>
+		<p>Before you can annotate, you need to load an image. You have two easy options:</p>
+		<ul>
+			<li><strong>Copy and Paste:</strong> Simply <strong>copy</strong> an image (screenshot or image file) from
+				anywhere,
+				then click on the tool&#39;s area and press <kbd>Ctrl+V</kbd> (Windows/Linux) or
+				<kbd>Cmd+V</kbd> (Mac).</li>
+			<li><strong>Drag and Drop:</strong> Drag an image file from your computer&#39;s folder and
+				<strong>drop</strong> it
+				anywhere onto the main canvas area.</li>
+		</ul>
+		<hr>
+		<h2 id="-annotation-tools-modes">🛠️ Annotation Tools &amp; Modes</h2>
+		<p>You can select your drawing tool from the controls panel at the top. The currently active tool is
+			highlighted.</p>
+		<table>
+			<thead>
+				<tr>
+					<th style="text-align:center">Tool Icon</th>
+					<th style="text-align:center">Mode Name</th>
+					<th style="text-align:left">Purpose</th>
+					<th style="text-align:center">Keyboard Shortcut</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="text-align:center"><i class="fa fa-square-o"></i></td>
+					<td style="text-align:center"><strong>Rectangle</strong></td>
+					<td style="text-align:left">Draw rectangular boxes to highlight areas.</td>
+					<td style="text-align:center"><kbd>R</kbd></td>
+				</tr>
+				<tr>
+					<td style="text-align:center"><i class="fa fa-circle-o"></i></td>
+					<td style="text-align:center"><strong>Circle</strong></td>
+					<td style="text-align:left">Draw circular or elliptical shapes.</td>
+					<td style="text-align:center"><kbd>C</kbd></td>
+				</tr>
+				<tr>
+					<td style="text-align:center"><i class="fa fa-arrow-right"></i></td>
+					<td style="text-align:center"><strong>Arrow</strong></td>
+					<td style="text-align:left">Draw arrows to point out specific elements.</td>
+					<td style="text-align:center"><kbd>A</kbd></td>
+				</tr>
+				<tr>
+					<td style="text-align:center"><i class="fa fa-hashtag"></i></td>
+					<td style="text-align:center"><strong>Step Counter</strong></td>
+					<td style="text-align:left">Place numbered markers to create sequential guides.</td>
+					<td style="text-align:center"><kbd>S</kbd></td>
+				</tr>
+			</tbody>
+		</table>
+		<hr>
+		<h2 id="-drawing-editing-shapes">✍️ Drawing &amp; Editing Shapes</h2>
+		<h3 id="1-drawing">1. Drawing</h3>
+		<ul>
+			<li><strong>Select a Tool:</strong> Click one of the tool icons (Rectangle, Circle, Arrow, etc.) in the
+				control bar,
+				or use its keyboard shortcut (e.g., <kbd>R</kbd> for Rectangle).</li>
+			<li><strong>Draw:</strong> Click and hold the <strong>left mouse button</strong> on the canvas, then
+				<strong>drag</strong> the cursor to create the shape. Release the button when done.</li>
+		</ul>
+		<h3 id="2-selecting-transforming">2. Selecting &amp; Transforming</h3>
+		<ul>
+			<li><strong>Select:</strong> <strong>Click</strong> on any existing shape to select it. A bounding box with
+				handles
+				will appear around it, and the color/stroke controls will apply to it.<ul>
+					<li><em>Tip:</em> For the Step Counter, clicking the number or the circle selects the whole group.
+					</li>
+				</ul>
+			</li>
+			<li><strong>Move:</strong> Click and drag the selected shape to move its position.</li>
+			<li><strong>Resize:</strong> Click and drag the small <strong>handles</strong> on the bounding box to resize
+				the
+				shape.</li>
+		</ul>
+		<h3 id="3-adjusting-colors-and-line-thickness">3. Adjusting Colors and Line Thickness</h3>
+		<p>The selected shape will respond to the controls:</p>
+		<ul>
+			<li><strong>Fill Color:</strong> Click the <strong>Fill Color</strong> swatch to change the main color
+				inside the
+				shape.<ul>
+					<li>To make a shape transparent inside, click the <strong>&quot;No Fill&quot;</strong> button.</li>
+				</ul>
+			</li>
+			<li><strong>Stroke Color:</strong> Click the <strong>Stroke Color</strong> swatch to change the color of the
+				outline/line.<ul>
+					<li>To make a shape have no outline, click the <strong>&quot;No Stroke&quot;</strong> button.</li>
+				</ul>
+			</li>
+			<li><strong>Adjusting Thickness (Stroke Width):</strong>
+				<ul>
+					<li>Hover your mouse over a shape and use your <strong>mouse wheel (scroll wheel)</strong> to
+						quickly
+						increase or decrease the line thickness. The thickness will also appear in the input box.</li>
+				</ul>
+			</li>
+		</ul>
+		<hr>
+		<h2 id="-quick-actions-shortcuts">🖱️ Quick Actions &amp; Shortcuts</h2>
+		<table>
+			<thead>
+				<tr>
+					<th style="text-align:left">Action</th>
+					<th style="text-align:left">Mouse/Keyboard Action</th>
+					<th style="text-align:left">Notes</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td style="text-align:left"><strong>Deselect Shape</strong></td>
+					<td style="text-align:left">Press <kbd>Esc</kbd> or Click on
+						the
+						background image.</td>
+					<td style="text-align:left">Removes the transformation handles.</td>
+				</tr>
+				<tr>
+					<td style="text-align:left"><strong>Remove Selected Shape</strong></td>
+					<td style="text-align:left">Press <kbd>Delete</kbd> or
+						<kbd>Backspace</kbd>.</td>
+					<td style="text-align:left">You can also use <i class="fa fa-trash"></i> button in the controls.</td>
+				</tr>
+				<tr>
+					<td style="text-align:left"><strong>Undo (Remove Last Shape)</strong></td>
+					<td style="text-align:left">Press <kbd>Ctrl+Z</kbd>.</td>
+					<td style="text-align:left">Removes the most recently added shape.</td>
+				</tr>
+				<tr>
+					<td style="text-align:left"><strong>Download Image</strong> </td>
+					<td style="text-align:left">Click the <strong><i class="fa fa-download"></i></strong> button.</td>
+					<td style="text-align:left">Saves the annotated image to your computer.</td>
+				</tr>
+				<tr>
+					<td style="text-align:left"><strong>Copy Annotated Image</strong></td>
+					<td style="text-align:left">Click the <strong><i class="fa fa-clipboard"></i></strong> button or press
+						<kbd>Ctrl+C</kbd>.
+					</td>
+					<td style="text-align:left">Copies the final annotated image to your clipboard.</td>
+				</tr>
+				<tr>
+					<td style="text-align:left"><strong>Swap Colors while Drawing</strong></td>
+					<td style="text-align:left">Hold <kbd>Shift</kbd> while drawing.</td>
+					<td style="text-align:left">This swaps the assigned <strong>Fill</strong> and
+						<strong>Stroke</strong> colors
+						for that specific shape.</td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+
 	<script type="text/javascript" src="/script.js"></script>
 
 </body>
