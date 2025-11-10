@@ -47,3 +47,26 @@ kbd {
   padding: 2px 4px;
   border-radius: 4px;
 }
+
+/* Footer links */
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem 0;
+  position: relative;
+  width: 100%;
+}
+
+.links a {
+  padding: 0.7rem 1.5rem;
+  text-decoration: none;
+  font-size: 12px;
+  width: 100%;
+  flex-basis: 50%;
+  transition: all 0.5s ease;
+}
+
+.links a:hover {
+  background-color: #fff;
+  color: #000;
+}
