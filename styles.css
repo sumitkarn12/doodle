@@ -42,11 +42,12 @@
   padding: 16px;
   margin: auto;
 }
-kbd {
-  background-color: #dddddd;
+.docs kbd {
+  border: 1px solid var(--bulma-text);
   padding: 2px 4px;
   border-radius: 4px;
 }
+
 
 /* Footer links */
 .links {

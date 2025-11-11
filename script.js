@@ -31,11 +31,7 @@ let tr = new Konva.Transformer();
 
 function shapeSelected(s) {
   currentShape = s;
-  if (s && currentShape.strokeWidth) {
-    strokeInput.value = currentShape.strokeWidth();
-  } else {
-    strokeInput.value = "";
-  }
+  strokeInput.value = (s && currentShape.strokeWidth) ? currentShape.strokeWidth() : "";
 }
 
 function getContrastingTextColor(hexColor) {
@@ -79,7 +75,7 @@ nofillEl.addEventListener("click", el => {
   fillColor = `transparent`;
   fillEl.value = "#ffffff"
   if (currentShape) {
-    currentShape.fill( ( currentShape.name() == "step-counter" )?"#fff":fillColor );
+    currentShape.fill((currentShape.name() == "step-counter") ? "#fff" : fillColor);
   }
 });
 nostrokeEl.addEventListener("click", el => {
@@ -187,7 +183,7 @@ function drawCounter(x, y) {
   return g;
 }
 
-stage.on("mousedown", ev => {
+stage.on("mousedown touchstart", ev => {
   if (ev.target.id() !== "bgimage") return;
   const pos = stage.getRelativePointerPosition();
 
@@ -205,7 +201,7 @@ stage.on("mousedown", ev => {
   layer.add(currentShape);
 });
 
-stage.on("mousemove", (e) => {
+stage.on("mousemove touchmove", (e) => {
   if (!isDrawing) return;
   const pos = stage.getRelativePointerPosition();
   if (currentMode == "rect") {
@@ -223,7 +219,7 @@ stage.on("mousemove", (e) => {
   }
 });
 
-stage.on("mouseup", ev => {
+stage.on("mouseup touchend", ev => {
   isDrawing = false;
   shapeSelected(null);
 });
@@ -295,9 +291,11 @@ stage.on("wheel", ev => {
 function loadImage(imgElement) {
   stage.scale({ x: 1, y: 1 });
   const placeholderText = document.querySelector("#placeholder-text");
+  placeholderText.classList.remove('is-flex');
   placeholderText.classList.add('is-hidden');
-  cnvs.classList.remove("is-hidden");
   cntrls.classList.remove("is-hidden");
+  cntrls.classList.add("is-flex");
+  cnvs.classList.remove("is-hidden");
 
   stage.height(imgElement.height);
   stage.width(imgElement.width);
@@ -434,7 +432,7 @@ document.addEventListener("keyup", ev => {
   } else if (ev.code == "KeyR") {
     document.querySelector("#mode-rect").click();
   } else if (ev.code == "KeyC") {
-    if ( ev.ctrlKey ) {
+    if (ev.ctrlKey) {
       document.querySelector("#copy-btn").click();
       return;
     }
@@ -451,3 +449,6 @@ document.addEventListener("keyup", ev => {
     }
   }
 });
+if (typeof navigator.serviceWorker !== 'undefined') {
+  navigator.serviceWorker.register('sw.js')
+}
