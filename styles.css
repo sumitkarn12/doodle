@@ -3,6 +3,7 @@
   user-select: none;
   transition: all 0.5s ease;
   perspective: 1000px;
+  cursor: pointer;
 }
 
 .placeholder-text-inner {

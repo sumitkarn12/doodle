@@ -310,6 +310,27 @@ function loadImage(imgElement) {
   layer.add(bgImage);
 }
 
+function loadUsingFileReader( f  ) {
+  const reader = new FileReader();
+  reader.onload = (event) => {
+    const img = new Image();
+    img.onload = () => loadImage( img );
+    img.src = event.target.result;
+  };
+  reader.readAsDataURL( f );
+  console.log("Loaded using FileReader" );
+}
+
+document.querySelector("#img").addEventListener("change", e => {
+  e.preventDefault();
+  const files = e.target.files;
+  if (files.length > 0 && files[0].type.startsWith('image/')) {
+    loadUsingFileReader( files[0] );
+  } else {
+    Toastify({ text: 'Only imaged are supported.', close: true, duration: 3000, position: 'left', gravity: "bottom" }).showToast();
+  }
+});
+
 document.addEventListener('paste', (e) => {
   const items = (e.clipboardData || e.originalEvent.clipboardData).items;
   let imagefound = false;
@@ -317,13 +338,7 @@ document.addEventListener('paste', (e) => {
     if (items[i].type.indexOf('image') !== -1) {
       stage.clear();
       const blob = items[i].getAsFile();
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const img = new Image();
-        img.onload = () => loadImage(img);
-        img.src = event.target.result;
-      };
-      reader.readAsDataURL(blob);
+      loadUsingFileReader( blob );
       imagefound = true;
       e.preventDefault();
       return;
@@ -356,13 +371,7 @@ canvasWrapper.addEventListener('drop', (e) => {
   canvasWrapper.classList.remove('has-background-link');
   const files = e.dataTransfer.files;
   if (files.length > 0 && files[0].type.startsWith('image/')) {
-    const reader = new FileReader();
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => loadImage(img);
-      img.src = event.target.result;
-    };
-    reader.readAsDataURL(files[0]);
+    loadUsingFileReader( files[0] );
   } else {
     Toastify({ text: 'Only imaged are supported.', close: true, duration: 3000, position: 'left', gravity: "bottom" }).showToast();
   }

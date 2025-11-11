@@ -79,8 +79,9 @@
 		<button id="copy-btn" class="button is-primary" title="Copy to Clipboard"><i class="fa fa-clipboard"></i></button>
 	</div>
 
+  <input type="file" id="img" class="is-hidden" />
 
-	<div id="placeholder-text" class="is-flex is-justify-content-center is-align-items-center is-size-4">
+	<label for="img" id="placeholder-text" class="is-flex is-justify-content-center is-align-items-center is-size-4">
     <div class="placeholder-text-inner box is-flex is-justify-content-center is-align-items-center">
       <p class="front">
         Press <code>Ctrl+V</code> (or <code>Cmd+V</code>) to paste from your clipboard.
@@ -89,7 +90,7 @@
         You can <strong>Drag</strong> and <strong>Drop</strong> an image here as well.
       </p>
     </div>
-	</div>
+	</label>
 
 	<div id="annotation-canvas" class="is-hidden"></div>
 
